@@ -730,3 +730,46 @@ mapActions: methods> ...mapActions(["action_name"...])
 this.action_name() === this.$store.dispatch("action_name")
 ```
 
+# bootStrap(https://v3.bootcss.com/)
+
+## 1.安装
+
+```shell
+  npm install bootstrap --save-dev
+  npm install jquery --save-dev
+  npm install popper.js --save-dev
+  or
+  yarn add -s bootstrap
+  yarn add -s jquery
+  yarn add popper.js
+```
+
+## 2.引入
+
+```javascript
+//在main.js文件中
+import 'bootstrap'
+import $ from 'jquery'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+```
+
+# Elment-Ui(https://element.eleme.cn/#/zh-CN/component/installation)
+
+## 1.安装
+
+```shell
+yarn add -s elment-ui
+or
+npm i elment-ui -s
+```
+
+## 2.引用
+
+```javascript
+//在main.js文件中
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
+```
+
