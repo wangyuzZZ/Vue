@@ -8,17 +8,7 @@ or
 npm install less less-loader --save
 ```
 
-##  2.引入
-
-```javascript
-//(修改webpack.base.conf.js文件，配置loader加载依赖，让其支持外部的less,在原来的代码上添加如下代码
-{
-	test: /\.less$/,
-	loader: "style-loader!css-loader!less-loader",
-},
-```
-
-##  3.引入
+##  2.使用
 
 ```javascript
 //(修改webpack.base.conf.js文件，配置loader加载依赖，让其支持外部的less,在原来的代码上添加如下代码
@@ -42,47 +32,35 @@ export default {
 </style>
 ```
 
-## 4.全局使用
+## 3.全局使用(创建单个less文件)
 
 ### 1.安装
 
 ```shell
-//安装
-npm install sass-resources-loader --save-dev
+npm install style-resources-loader -D
 or
-yarn add sass-resources-loader --save-dev
+yarn add style-resources-loader -D
 ```
 
 ### 2.修改配置
 
+![image-20200403114458980](C:\Users\WangKong\AppData\Roaming\Typora\typora-user-images\image-20200403114458980.png)
+
 ```javascript
-//在build 的utils.js中exports.cssLoaders = function (options) {}中加上一下代码：
-function lessResourceLoader() {
-        var loaders = [
-            cssLoader,
-            'less-loader',
-            {
-                loader: 'sass-resources-loader',
-                options: {
-                    resources: [
-                        path.resolve(__dirname, '../src/assets/styles/common.less'),
-                    ]
-                }
-                        }
-        ];
-        if (options.extract) {
-            return ExtractTextPlugin.extract({
-                use: loaders,
-                fallback: 'vue-style-loader'
-            })
-        } else {
-            return ['vue-style-loader'].concat(loaders)
+//在build 的utils.js中generateLoaders方法中加上一下代码：
+if(loader == 'less'){
+      loaders.push({
+        loader: 'style-resources-loader',
+        options:{
+          patterns:path.resolve(__dirname,'../src/assets/normalized.less')
         }
+      })
     }
 ```
 
->path.resolve(__dirname, '../src/style/style.less')路径改成自己对应的文件
->然后后面将 return{} 块中的 less: generateLoaders('less') 替换成上面自定义的函数 less: lessResourceLoader()
+>记得更改patterns路径
+>
+>然后在app.vue 引用 normalized.less 就可以全局使用了
 
 # axios
 
@@ -304,14 +282,6 @@ Vuex 是一个专为 Vue.js 应用程序开发的**状态管理模式**。它采
 View -> （Dispatch）Action -> （Commit）Mutations -> （Mutate）state -> View
 
 注意：Action 不是必需品，如果有异步操做才可能用到Action，否则可以不使用。
-
-## 回顾
-
-子父间数据传递
-
-父 -> 子：props
-
-子 -> 父：$emit(key, value)
 
 ### 安装/引用
 
